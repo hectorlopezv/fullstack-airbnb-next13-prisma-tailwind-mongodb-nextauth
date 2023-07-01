@@ -70,6 +70,9 @@ export default function Input({
       >
         {label}
       </label>
+      {erros[id] && (
+        <span className="text-red-800 block mt-2">{erros[id]?.message}</span>
+      )}
     </div>
   );
 }
