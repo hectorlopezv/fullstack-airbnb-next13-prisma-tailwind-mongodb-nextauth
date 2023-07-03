@@ -11,12 +11,12 @@ export const registerModalValidator = z
       }),
     password: z
       .string()
-      .min(8, { message: "Password must be at least 9 character longs" })
+      .min(4, { message: "Password must be at least 9 character longs" })
       .max(32, { message: "Password must be at most 32 characters long" })
       .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/),
     confirmPassword: z
       .string()
-      .min(8, { message: "Password must be at least 9 character longs" })
+      .min(4, { message: "Password must be at least 9 character longs" })
       .max(32, { message: "Password must be at most 32 characters long" })
       .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/),
     email: z.string().email({ message: "Invalid email" }),

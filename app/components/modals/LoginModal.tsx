@@ -1,48 +1,53 @@
 "use client";
 import { AiFillGithub } from "react-icons/ai";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
 import { FcGoogle } from "react-icons/fc";
-import { FieldValues, SubmitHandler, set, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  registerModalValidator,
-  registerModalValidatorType,
-} from "@/app/libs/validators/registerModalValidator";
-
+import { registerModalValidator } from "@/app/libs/validators/registerModalValidator";
 import axios from "axios";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../input/Input";
 import PasswordRevealer from "../input/PassWordRevelaer";
-import { toast } from "react-hot-toast";
+
 import Button from "../Button";
+import { loginModalValidatorType } from "@/app/libs/validators/loginModalValidator";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 type Props = {};
 
-export default function RegisterModal({}: Props) {
-  const registerModal = useRegisterModal();
+export default function LoginModal({}: Props) {
+  const router = useRouter();
+  const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<registerModalValidatorType>({
+  } = useForm<loginModalValidatorType>({
     defaultValues: {
-      name: "",
       email: "",
-      confirmPassword: "",
       password: "",
     },
     resolver: zodResolver(registerModalValidator),
   });
-  const onSubmit: SubmitHandler<registerModalValidatorType> = async (data) => {
+  const onSubmit: SubmitHandler<loginModalValidatorType> = async (data) => {
     try {
       setIsLoading(true);
-      await axios.post("/api/register", data);
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong, please try again later");
+      const res = await signIn("credentials", { ...data, redirect: false });
+      if (res?.ok) {
+        toast.success("Logged in successfully");
+        router.refresh();
+        loginModal.onClose();
+      }
+      if (res?.error) {
+        toast.error(res?.error);
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -50,7 +55,7 @@ export default function RegisterModal({}: Props) {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to Airbnb" subtitle="Create an Account!" />
+      <Heading title="Welcome back" subtitle="Login to your account" />
       <Input
         id="email"
         label="Email"
@@ -59,14 +64,7 @@ export default function RegisterModal({}: Props) {
         register={register}
         type="text"
       />
-      <Input
-        id="name"
-        label="Name"
-        erros={errors}
-        required
-        register={register}
-        type="text"
-      />
+
       <PasswordRevealer
         id="password"
         label="Password"
@@ -74,14 +72,6 @@ export default function RegisterModal({}: Props) {
         required
         register={register}
         type="password"
-      />
-      <Input
-        type="password"
-        id="confirmPassword"
-        label="Confirmation Password"
-        erros={errors}
-        required
-        register={register}
       />
     </div>
   );
@@ -109,7 +99,7 @@ export default function RegisterModal({}: Props) {
           <div>Already have an account?</div>
           <div
             className="text-neutral-800 cursor-pointer hover:underline"
-            onClick={registerModal.onClose}
+            onClick={loginModal.onClose}
           >
             Log in
           </div>
@@ -120,10 +110,10 @@ export default function RegisterModal({}: Props) {
   return (
     <Modal
       disabled={isLoading}
-      title="Register"
+      title="Login"
       actionLabel="Continue"
-      isOpen={registerModal.isOpen}
-      onClose={registerModal.onClose}
+      isOpen={loginModal.isOpen}
+      onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}

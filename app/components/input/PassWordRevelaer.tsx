@@ -2,16 +2,14 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Input from "./Input";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { registerModalValidatorType } from "@/app/validators/registerModalValidator";
 type Props = {
-  id: keyof registerModalValidatorType;
+  id: any;
   label: string;
   type?: string;
   disabled?: boolean;
   required?: boolean;
-  register: UseFormRegister<registerModalValidatorType>;
-  erros: FieldErrors<registerModalValidatorType>;
+  register: any;
+  erros: any;
 };
 const PasswordRevealer = ({
   erros,

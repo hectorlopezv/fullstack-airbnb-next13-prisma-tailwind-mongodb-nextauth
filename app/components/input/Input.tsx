@@ -1,18 +1,16 @@
 "use client";
 import { BiDollar } from "react-icons/bi";
-import { registerModalValidatorType } from "@/app/validators/registerModalValidator";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { ReactNode } from "react";
 
 type Props = {
-  id: keyof registerModalValidatorType;
+  id: any;
   label: string;
   type?: string;
   disabled?: boolean;
   formatPrice?: boolean;
   required?: boolean;
-  register: UseFormRegister<registerModalValidatorType>;
-  erros: FieldErrors<registerModalValidatorType>;
+  register: any;
+  erros: any;
   children?: ReactNode;
 };
 
