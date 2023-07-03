@@ -7,6 +7,7 @@ import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "./components/modals/LoginModal";
 import { getCurrentUser } from "./actions/getSession";
+import SessionProviderWrapper from "./providers/SessionProvider";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -25,11 +26,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <ToasterProvider  />
-        <RegisterModal isOpen title="Hello World" actionLabel="Submit" />
-        <LoginModal isOpen title="Hello World" actionLabel="Submit" />
-        <NavBar currentUser={currentUser}/>
-        {children}
+        <SessionProviderWrapper>
+          <ToasterProvider />
+          <RegisterModal isOpen title="Hello World" actionLabel="Submit" />
+          <LoginModal isOpen title="Hello World" actionLabel="Submit" />
+          <NavBar currentUser={currentUser} />
+          {children}
+        </SessionProviderWrapper>
       </body>
     </html>
   );
