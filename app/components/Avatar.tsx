@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 type Props = {
-  src?: string;
+  src?: string | null;
 };
 
 export default function Avatar({ src }: Props) {
