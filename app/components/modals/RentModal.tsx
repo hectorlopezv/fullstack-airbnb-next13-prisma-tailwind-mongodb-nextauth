@@ -5,7 +5,9 @@ import { useMemo, useState } from "react";
 import Heading from "../Heading";
 import { categories } from "@/app/libs/constants";
 import CategoryInput from "../input/CategoryInput";
-import { FieldValue, FieldValues, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../input/CountrySelect";
+import dynamic from "next/dynamic";
 
 enum Steps {
   CATEGORY = 0,
@@ -40,6 +42,15 @@ export default function RentModal({}: Props) {
     },
   });
   const category = watch("category");
+  const location = watch("location");
+
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("../Map"), {
+        ssr: false,
+      }),
+    [location]
+  );
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldDirty: true,
@@ -88,12 +99,29 @@ export default function RentModal({}: Props) {
       </div>
     </div>
   );
+  if (step === Steps.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located"
+          subtitle="Help your guest find you!"
+        />
+        <CountrySelect
+          value={location}
+          onChange={(location) => {
+            setCustomValue("location", location);
+          }}
+        />
+        <Map center={location?.latlng} />
+      </div>
+    );
+  }
   return (
     <Modal
       body={bodyContent}
+      onSubmit={onNext}
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={rentModal.onClose}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === Steps.CATEGORY ? undefined : onBack}
