@@ -11,7 +11,7 @@ import Button from "../Button";
 type Props = {
   data: Listing;
   currentUser?: SafeUser | null;
-  reservation?: Reservation;
+  reservation?: Reservation & Listing;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;

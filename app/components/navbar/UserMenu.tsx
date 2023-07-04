@@ -9,12 +9,14 @@ import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
 import useRentModal from "@/app/hooks/useRentModal";
+import { useRouter } from "next/navigation";
 type Props = {
   currentUser?: SafeUser | null;
 };
 
 export default function UserMenu({ currentUser }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const rentModal = useRentModal();
@@ -69,7 +71,7 @@ export default function UserMenu({ currentUser }: Props) {
                   <MenuItem
                     label="My trips"
                     onClick={() => {
-                      signOut();
+                      router.push("/trips");
                     }}
                   />
                   <MenuItem

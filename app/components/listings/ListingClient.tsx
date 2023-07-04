@@ -66,6 +66,7 @@ export default function ListingClient({
       });
       setDateRange(initialDateRange);
       toast.success("Reservation created, check your email for confirmation");
+      router.push("/trips");
       router.refresh();
     } catch (error: any) {
       toast.error(error?.response?.data?.message || "Something went wrong");
