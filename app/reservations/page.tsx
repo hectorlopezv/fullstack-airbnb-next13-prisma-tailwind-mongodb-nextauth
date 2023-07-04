@@ -2,7 +2,7 @@ import { getReservations } from "../actions/getReservations";
 import { getCurrentUser } from "../actions/getSession";
 import EmptyState from "../components/EmptyState";
 import ReservationsClient from "../components/reservations/ReservationsClient";
-import TripsClient from "../components/trips/TripsClient";
+
 
 type Props = {};
 

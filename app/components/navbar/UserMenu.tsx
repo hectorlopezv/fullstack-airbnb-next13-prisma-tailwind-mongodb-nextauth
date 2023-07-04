@@ -77,7 +77,7 @@ export default function UserMenu({ currentUser }: Props) {
                   <MenuItem
                     label="My favorites"
                     onClick={() => {
-                      signOut();
+                      router.push("/favorites");
                     }}
                   />
                   <MenuItem
