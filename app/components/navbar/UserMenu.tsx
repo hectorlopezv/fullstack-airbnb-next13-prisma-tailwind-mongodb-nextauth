@@ -83,7 +83,7 @@ export default function UserMenu({ currentUser }: Props) {
                   <MenuItem
                     label="My reservations"
                     onClick={() => {
-                      signOut();
+                      router.push("/reservations");
                     }}
                   />
                   <MenuItem

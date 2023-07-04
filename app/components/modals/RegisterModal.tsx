@@ -42,6 +42,9 @@ export default function RegisterModal({}: Props) {
     try {
       setIsLoading(true);
       await axios.post("/api/register", data);
+      toast.success("Account created successfully");
+      registerModal.onClose();
+      loginModal.onOpen();
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong, please try again later");
