@@ -1,8 +1,4 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../libs/authOptions";
 import prisma from "@/app/libs/prismadb";
-import { SafeUser } from "../types";
-import getSession from "./getSession";
 
 export async function getListingById(id: string) {
   try {
