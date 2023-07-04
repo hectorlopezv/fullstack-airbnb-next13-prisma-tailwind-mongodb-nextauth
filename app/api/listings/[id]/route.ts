@@ -16,20 +16,13 @@ export async function DELETE(
       return new NextResponse("Invalid ID", { status: 400 });
     }
 
-    const reservation = await prisma.reservation.deleteMany({
+    const listing = await prisma.listing.deleteMany({
       where: {
         id: id,
-        OR: [
-          {
-            userId: currentUser.id,
-          },
-          {
-            listing: { userId: currentUser.id },
-          },
-        ],
+        userId: currentUser.id,
       },
     });
-    return NextResponse.json(reservation);
+    return NextResponse.json(listing);
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new NextResponse("INVALID PAYLOAD", { status: 400 });
