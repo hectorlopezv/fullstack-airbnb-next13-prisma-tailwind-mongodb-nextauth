@@ -82,12 +82,13 @@ export default function RentModal({}: Props) {
     }
     try {
       setIsLoading(true);
-      axios.post("/api/listings", data);
+      await axios.post("/api/listings", data);
       toast.success("Listing created successfully");
-      router.refresh();
+
       reset();
       setStep(Steps.CATEGORY);
       rentModal.onClose();
+      router.refresh();
     } catch (error) {
       toast.error("Something went wrong, please try again later");
     } finally {

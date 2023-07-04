@@ -5,7 +5,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useCallback, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerModalValidator } from "@/app/libs/validators/registerModalValidator";
-import axios from "axios";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../input/Input";
