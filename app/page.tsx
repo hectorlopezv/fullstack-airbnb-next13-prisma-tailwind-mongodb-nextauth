@@ -6,9 +6,9 @@ import Container from "./components/navbar/Container";
 interface HomeProps {
   searchParams: IListingsParams;
 }
+export const dynamic = "force-dynamic";
 export default async function Home({ searchParams }: HomeProps) {
   const listings = await getListing(searchParams);
-  console.log("listings", listings);
   const currentUser = await getCurrentUser();
   if (listings.length === 0) {
     return <EmptyState showReset />;

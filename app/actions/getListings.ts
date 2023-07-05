@@ -1,73 +1,62 @@
 import prisma from "@/app/libs/prismadb";
 
 export interface IListingsParams {
-  userId?: string;
-  guestCount?: number;
-  roomCount?: number;
-  bathroomCount?: number;
-  startDate?: string;
-  endDate?: string;
-  locationValue?: string;
-  category?: string;
+  userId?: string | null;
+  guestCount?: number | null;
+  roomCount?: number | null;
+  bathroomCount?: number | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  locationValue?: string | null;
+  category?: string | null;
 }
 
 export async function getListing(params: IListingsParams) {
   try {
-    const {
-      userId,
-      roomCount,
-      guestCount,
-      bathroomCount,
-      locationValue,
-      startDate,
-      endDate,
-      category,
-    } = params || {};
-    console.log("params", params);
     let query: any = {};
 
-    if (userId) {
-      query.userId = userId;
+    if (params?.userId) {
+      query.userId = params?.userId;
     }
 
-    if (category) {
-      query.category = category;
+    if (params?.category) {
+      query.category = params?.category;
     }
 
-    if (roomCount) {
+    if (params?.roomCount) {
       query.roomCount = {
-        gte: +roomCount,
+        gte: +params?.roomCount,
       };
     }
 
-    if (guestCount) {
+    if (params?.guestCount) {
       query.guestCount = {
-        gte: +guestCount,
+        gte: +params?.guestCount,
       };
     }
 
-    if (bathroomCount) {
+    if (params?.bathroomCount) {
       query.bathroomCount = {
-        gte: +bathroomCount,
+        gte: +params?.bathroomCount,
       };
     }
 
-    if (locationValue) {
-      query.locationValue = locationValue;
+    if (params?.locationValue) {
+      query.locationValue = params?.locationValue;
     }
 
-    if (startDate && endDate) {
+    if (params?.startDate && params?.endDate) {
       query.NOT = {
         reservations: {
           some: {
             OR: [
               {
-                endDate: { gte: startDate },
-                startDate: { lte: startDate },
+                endDate: { gte: params?.startDate },
+                startDate: { lte: params?.startDate },
               },
               {
-                startDate: { lte: endDate },
-                endDate: { gte: endDate },
+                startDate: { lte: params?.endDate },
+                endDate: { gte: params?.endDate },
               },
             ],
           },
