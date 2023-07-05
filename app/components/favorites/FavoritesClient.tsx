@@ -1,4 +1,4 @@
-"use client";
+
 import { SafeUser } from "@/app/types";
 import { Listing } from "@prisma/client";
 import Container from "../navbar/Container";

@@ -1,5 +1,4 @@
 import { getFavoritesListings } from "../actions/getFavoritesListings";
-import { getReservations } from "../actions/getReservations";
 import { getCurrentUser } from "../actions/getSession";
 import EmptyState from "../components/EmptyState";
 import FavoritesClient from "../components/favorites/FavoritesClient";

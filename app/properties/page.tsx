@@ -1,9 +1,8 @@
 import { getListing } from "../actions/getListings";
-import { getReservations } from "../actions/getReservations";
+
 import { getCurrentUser } from "../actions/getSession";
 import EmptyState from "../components/EmptyState";
 import PropertiesClient from "../components/properties/PropertiesClient";
-import TripsClient from "../components/trips/TripsClient";
 
 type Props = {};
 

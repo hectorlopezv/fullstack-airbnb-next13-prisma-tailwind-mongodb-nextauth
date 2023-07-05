@@ -3,8 +3,6 @@ import { getReservations } from "@/app/actions/getReservations";
 import { getCurrentUser } from "@/app/actions/getSession";
 import EmptyState from "@/app/components/EmptyState";
 import ListingClient from "@/app/components/listings/ListingClient";
-import { Reservation } from "@prisma/client";
-import { useParams } from "next/navigation";
 
 type Props = {
   params: {

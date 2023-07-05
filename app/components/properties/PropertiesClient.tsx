@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 import Heading from "../Heading";
 import Container from "../navbar/Container";
 import ListingCard from "../listings/ListingCard";
-import { Listing } from "@prisma/client";
 
 type Props = {
   currentUser?: SafeUser | null;

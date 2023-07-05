@@ -12,7 +12,7 @@ import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import ListingReservation from "./ListingReservation";
-import { Range } from "react-date-range";
+import type { Range } from "react-date-range";
 
 type Props = {
   currentUser?: SafeUser | null;

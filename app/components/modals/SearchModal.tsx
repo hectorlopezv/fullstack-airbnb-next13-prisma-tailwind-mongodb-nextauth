@@ -6,7 +6,7 @@ import qs from "query-string";
 import Heading from "../Heading";
 import { useRouter, useSearchParams } from "next/navigation";
 import useSearchModal from "@/app/hooks/useSearchModal";
-import { Range } from "react-date-range";
+import type { Range } from "react-date-range";
 import dynamic from "next/dynamic";
 import CountrySelect, { ContrySelectValue } from "../input/CountrySelect";
 import { formatISO, set } from "date-fns";
@@ -192,6 +192,7 @@ export default function SearchModal({}: Props) {
       secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
       onClose={searchModal.onClose}
       body={bodyContent}
+      disabled={isLoading}
     />
   );
 }

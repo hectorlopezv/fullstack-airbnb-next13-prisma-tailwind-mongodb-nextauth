@@ -3,14 +3,14 @@ import "./globals.css";
 import { Nunito } from "next/font/google";
 import NavBar from "./components/navbar/NavBar";
 import RegisterModal from "./components/modals/RegisterModal";
-
 import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "./components/modals/LoginModal";
 import { getCurrentUser } from "./actions/getSession";
 import SessionProviderWrapper from "./providers/SessionProvider";
 import RentModal from "./components/modals/RentModal";
 import SearchModal from "./components/modals/SearchModal";
-
+import Loading from "./loading";
+import { Suspense } from "react";
 const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -33,7 +33,9 @@ export default async function RootLayout({
           <RentModal />
           <RegisterModal />
           <LoginModal />
-          <SearchModal />
+          <Suspense fallback={<Loading />}>
+            <SearchModal />
+          </Suspense>
           <NavBar currentUser={currentUser} />
           <div className="pb-20 pt-28">{children}</div>
         </SessionProviderWrapper>
